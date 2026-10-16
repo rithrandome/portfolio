@@ -1,9 +1,9 @@
 import { Hero } from "@/components/hero";
+import { Projects } from "@/components/projects";
 
-// The sections below the hero are still placeholders; each gets replaced
+// The sections after Projects are still placeholders; each gets replaced
 // with its real component in the next checkpoints.
 const sections = [
-  { id: "work", title: "Selected work" },
   { id: "experience", title: "Experience" },
   { id: "skills", title: "Skills" },
   { id: "education", title: "Education & certifications" },
@@ -14,6 +14,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Projects />
       <div className="mx-auto max-w-[1120px] px-6">
         {sections.map((section, i) => (
           <section
@@ -23,7 +24,7 @@ export default function Home() {
           >
             <h2 className="text-[34px] font-semibold tracking-[-0.02em]">
               <span className="mr-3 font-mono text-[15px] font-normal text-accent">
-                {String(i + 1).padStart(2, "0")}
+                {String(i + 2).padStart(2, "0")}
               </span>
               {section.title}
             </h2>

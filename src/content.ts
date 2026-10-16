@@ -36,6 +36,23 @@ export const hero = {
   ],
 };
 
+export type FlowStep = {
+  label: string;
+  /** highlighted in the accent colour: the parts doing the interesting work */
+  accent?: boolean;
+  /** connector drawn after this step: "→" passes forward, "⇄" is a check-and-retry loop */
+  next?: "→" | "⇄";
+};
+
+export type ProjectVisual =
+  | { kind: "flow"; rows: FlowStep[][] }
+  | {
+      kind: "metrics";
+      caption: string;
+      bars: { label: string; value: number }[];
+      footnote: string;
+    };
+
 export type Project = {
   slug: string;
   title: string;
@@ -44,7 +61,9 @@ export type Project = {
   summary: string;
   stack: string[];
   metric?: { value: string; label: string };
+  /** the first link is where the whole card goes */
   links: { label: string; href: string; external?: boolean }[];
+  visual: ProjectVisual;
 };
 
 export const projects: Project[] = [
@@ -57,6 +76,22 @@ export const projects: Project[] = [
     stack: ["Bedrock Agents", "Knowledge Bases", "Lambda", "LangChain", "Streamlit"],
     metric: { value: "~90%", label: "SQL accuracy" },
     links: [{ label: "Case study", href: "/projects/console-companion" }],
+    visual: {
+      kind: "flow",
+      rows: [
+        [
+          { label: '"Which EC2s are untagged?"', next: "→" },
+          { label: "Bedrock Agent", accent: true, next: "→" },
+          { label: "KB: EC2" },
+        ],
+        [
+          { label: "SQL", next: "⇄" },
+          { label: "Validator", accent: true, next: "→" },
+          { label: "AWS Config", next: "→" },
+          { label: "answer" },
+        ],
+      ],
+    },
   },
   {
     slug: "langchain-doc-helper",
@@ -67,8 +102,21 @@ export const projects: Project[] = [
     stack: ["Python", "Ollama", "Pinecone", "RAGAS", "LangSmith", "Streamlit"],
     metric: { value: "94%", label: "faithfulness" },
     links: [
-      { label: "GitHub", href: "https://github.com/rithrandome", external: true },
+      {
+        label: "GitHub",
+        href: "https://github.com/rithrandome/langchain-doc-helper",
+        external: true,
+      },
     ],
+    visual: {
+      kind: "metrics",
+      caption: "RAGAS + LangSmith · 50-question golden set",
+      bars: [
+        { label: "faithfulness", value: 94 },
+        { label: "answer relevance", value: 89 },
+      ],
+      footnote: "+ 4 more evaluators · request-level tracing",
+    },
   },
   {
     slug: "network-ai",
@@ -78,9 +126,21 @@ export const projects: Project[] = [
     summary:
       "Outreach for job seekers that doesn't sound like a template. It finds people, lets you choose what to mention, and drafts only from that. Code validators reject anything made up and retry.",
     stack: ["Python", "Exa", "FastAPI", "React (next)"],
-    links: [
-      { label: "GitHub", href: "https://github.com/rithrandome", external: true },
-    ],
+    links: [],
+    visual: {
+      kind: "flow",
+      rows: [
+        [
+          { label: "Exa search", next: "→" },
+          { label: "you pick context", next: "→" },
+        ],
+        [
+          { label: "draft", accent: true, next: "⇄" },
+          { label: "validators", accent: true, next: "→" },
+          { label: "message" },
+        ],
+      ],
+    },
   },
 ];
 

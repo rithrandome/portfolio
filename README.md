@@ -6,7 +6,7 @@ My personal portfolio: projects, experience and how to reach me. It's a small si
 
 ## Running it locally
 
-Requires Node.js 20 or newer.
+Uses Node 22, pinned in `.nvmrc` and `package.json` (`engines`), so every machine and Vercel run the same version. Dependencies install into `node_modules/` inside this folder, the Node equivalent of a project `.venv`.
 
 ```bash
 npm install      # first time only
@@ -26,7 +26,16 @@ src/
     globals.css            colour tokens for both themes + Tailwind setup
   components/
     nav.tsx                sticky top bar
-    theme-toggle.tsx       light/dark button (the only client component so far)
+    hero.tsx               intro, link buttons and the "now" panel
+    projects.tsx           the Selected work section: one full-width card per row
+    project-card.tsx       one project card (link, hover lift, metric)
+    project-visual.tsx     the card's picture: a pipeline or eval bars, drawn from content.ts
+    section-heading.tsx    numbered heading shared by every section
+    button-link.tsx        a link styled as a button (primary / secondary)
+    icons.tsx              inline stroke icons, no icon library
+    reveal.tsx             the one entrance animation (fade + lift), on load or on scroll
+    motion-provider.tsx    site-wide animation settings (respects reduced motion)
+    theme-toggle.tsx       light/dark button
   lib/
     theme.ts               the inline script that picks the theme before first paint
 public/
@@ -43,4 +52,8 @@ public/
 
 **Self-hosted fonts.** Geist comes from the `geist` npm package, which bundles the font files. No request to Google Fonts at build time or when someone visits.
 
-**Server components by default.** Only the theme toggle runs JavaScript in the browser. Everything else is rendered to static HTML at build time.
+**Server components by default.** Only the theme toggle and the animation wrapper run JavaScript in the browser. Everything else is rendered to static HTML at build time, and the hero stays a server component that just wraps pieces in `<Reveal>`.
+
+**Card visuals are data, not images.** Each project's diagram or eval bars is described in `content.ts` and drawn with HTML, so it follows the theme, stays sharp at any size, and updating a score is a one-number change. Screenshots and GIFs can still replace them later.
+
+**One animation primitive.** Every entrance on the site goes through `Reveal`, so timing and easing are consistent and live in one file. Motion's `reducedMotion="user"` drops the movement for visitors who've asked their OS for less motion.
