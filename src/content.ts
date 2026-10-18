@@ -2,17 +2,20 @@
 // so updating a project, a date or a link never means touching a component.
 
 export const site = {
+  /** short form, used in the nav logo */
   name: "Rithwik",
-  role: "Applied AI Engineer",
+  fullName: "Rithwik Veera Balaji Kumar",
   location: "Saskatoon, Canada",
   url: "https://rithwik.vercel.app",
   description:
-    "Applied AI engineer building agentic systems and the evaluation around them.",
+    "Rithwik Veera Balaji Kumar builds dependable AI applications and software in Saskatoon, focusing on practical workflows, evaluation, and cloud engineering.",
   links: {
     resume: "/resume.pdf",
     github: "https://github.com/rithrandome",
     linkedin: "https://linkedin.com/in/vrithwik",
     email: "rithuv20@gmail.com",
+    /** this site's own repo, linked from the footer */
+    source: "https://github.com/rithrandome/portfolio",
   },
 };
 
@@ -24,15 +27,14 @@ export const nav = [
 ];
 
 export const hero = {
-  eyebrow: `${site.role} · ${site.location}`,
-  headline: "I build AI agents,",
-  headlineAccent: "and the checks that keep them honest.",
+  /** written without the final full stop: the hero adds it in the accent colour */
+  headline: "I build intelligent systems that make your business easier to run",
   intro:
-    "At AWS I built a Bedrock agent that turns plain-English questions into AWS Config SQL. Now I'm doing my master's at Georgia Tech and building RAG and agent projects that come with real evals.",
+    "Conversational AI and agents that are grounded, consistent, careful with your data, and tested before they reach your customers.",
   now: [
-    { label: "building", value: "network-ai, an outreach agent" },
-    { label: "studying", value: "M.S. CS @ Georgia Tech (AI)" },
-    { label: "open to", value: "Applied AI / SWE roles, Canada", highlight: true },
+    { label: "Building", value: "network-ai, an outreach assistant for job seekers" },
+    { label: "Studying", value: "M.S. in CS (AI), Georgia Tech" },
+    { label: "Open to", value: "Full-time roles and freelance projects" },
   ],
 };
 
@@ -72,7 +74,7 @@ export const projects: Project[] = [
     title: "Console Companion",
     tag: "Built at AWS ProServe",
     summary:
-      "Plain-English questions in, valid AWS Config SQL out. Resource-partitioned knowledge bases ground it, a separate validator checks the query, and execution errors loop back for a fix.",
+      "The goal was to let users ask questions about AWS Config without writing SQL themselves. I built a Bedrock Agents chatbot with resource-specific knowledge bases, an independent validator for AWS Config query limits, and an error-correction loop that lets the agent retry failed queries.",
     stack: ["Bedrock Agents", "Knowledge Bases", "Lambda", "LangChain", "Streamlit"],
     metric: { value: "~90%", label: "SQL accuracy" },
     links: [{ label: "Case study", href: "/projects/console-companion" }],
@@ -98,7 +100,7 @@ export const projects: Project[] = [
     title: "LangChain Documentation Helper",
     tag: "RAG · Evaluation",
     summary:
-      "A RAG assistant over the LangChain docs: sitemap ingestion, a query-rewrite step before retrieval, and a six-evaluator test suite so I know when a change makes it worse.",
+      "I built a documentation assistant that retrieves relevant material from the LangChain docs and uses query rewriting to improve the questions it searches with. Across a 50-question golden set, six RAGAS/LangSmith evaluators reported 94% faithfulness and 89% answer relevance. Request-level tracing also lets me inspect individual runs.",
     stack: ["Python", "Ollama", "Pinecone", "RAGAS", "LangSmith", "Streamlit"],
     metric: { value: "94%", label: "faithfulness" },
     links: [
@@ -124,7 +126,7 @@ export const projects: Project[] = [
     tag: "Agents",
     status: "in-progress",
     summary:
-      "Outreach for job seekers that doesn't sound like a template. It finds people, lets you choose what to mention, and drafts only from that. Code validators reject anything made up and retry.",
+      "I started network-ai because I was tired of explaining my background, goals, and approach to a new chat every time I needed help with outreach. It combines Exa people search with user-selected context to draft messages, then uses code-based validators to reject unsupported details and retry the draft.",
     stack: ["Python", "Exa", "FastAPI", "React (next)"],
     links: [],
     visual: {
@@ -201,13 +203,30 @@ export const education = [
   { school: "NIT Trichy", degree: "B.Tech, Instrumentation and Control Engineering", dates: "2019 — 2023" },
 ];
 
+// Each badge links to its public Credly page, so anyone can verify it.
 export const certifications = [
-  { issuer: "AWS", name: "Solutions Architect Associate" },
-  { issuer: "AWS", name: "AI Practitioner" },
-  { issuer: "HashiCorp", name: "Terraform Associate" },
-  { issuer: "AWS", name: "Cloud Practitioner" },
+  {
+    issuer: "AWS",
+    name: "Solutions Architect Associate",
+    href: "https://www.credly.com/badges/a9979e3d-40bd-41c0-baa8-836d5e622cf5/public_url",
+  },
+  {
+    issuer: "AWS",
+    name: "AI Practitioner",
+    href: "https://www.credly.com/badges/73eb177c-1f6c-48b2-b0a4-fb8a9774af2c/public_url",
+  },
+  {
+    issuer: "HashiCorp",
+    name: "Terraform Associate",
+    href: "https://www.credly.com/badges/8dbd6792-5990-431e-973d-b765e3a290db/public_url",
+  },
+  {
+    issuer: "AWS",
+    name: "Cloud Practitioner",
+    href: "https://www.credly.com/badges/11a4c90b-fceb-4d15-a682-44d450e53949/public_url",
+  },
 ];
 
 export const contact = {
-  headline: "Hiring for an AI or software role in Canada? I'd like to hear about it.",
+  headline: "Have a problem AI could help with, or a role to fill? I'd like to hear about it.",
 };

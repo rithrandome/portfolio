@@ -31,6 +31,11 @@ src/
     project-card.tsx       one project card (link, hover lift, metric)
     project-visual.tsx     the card's picture: a pipeline or eval bars, drawn from content.ts
     section-heading.tsx    numbered heading shared by every section
+    experience.tsx         work timeline
+    skills.tsx             grouped skill chips
+    education.tsx          degrees + certification badges (linked to Credly)
+    contact.tsx            closing call to action
+    footer.tsx             footer on every page
     button-link.tsx        a link styled as a button (primary / secondary)
     icons.tsx              inline stroke icons, no icon library
     reveal.tsx             the one entrance animation (fade + lift), on load or on scroll

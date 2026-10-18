@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 // no request to Google at build time or when someone visits.
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Footer } from "@/components/footer";
 import { MotionProvider } from "@/components/motion-provider";
 import { Nav } from "@/components/nav";
 import { site } from "@/content";
@@ -12,8 +13,8 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} · ${site.role}`,
-    template: `%s · ${site.name}`,
+    default: site.fullName,
+    template: `%s · ${site.fullName}`,
   },
   description: site.description,
 };
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <MotionProvider>
           <Nav />
           <main className="flex-1">{children}</main>
+          <Footer />
         </MotionProvider>
       </body>
     </html>
