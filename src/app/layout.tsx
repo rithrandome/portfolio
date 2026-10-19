@@ -23,9 +23,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // data-theme is a server-side default; the inline script corrects it before
     // first paint, and suppressHydrationWarning tells React that's expected.
+    // data-scroll-behavior="smooth" makes Next.js switch smooth scrolling off while it
+    // changes pages, so links like /#contact from another page land on the right
+    // section; in-page anchor links still scroll smoothly.
     <html
       lang="en"
       data-theme="dark"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
     >

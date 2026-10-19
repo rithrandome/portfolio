@@ -186,7 +186,7 @@ export const projects: Project[] = [
       kind: "flow",
       rows: [
         [
-          { label: '"Which EC2s are untagged?"', next: "→" },
+          { label: '"Which EC2s are stopped?"', next: "→" },
           { label: "Bedrock Agent", accent: true, next: "→" },
           { label: "KB: EC2" },
         ],
@@ -320,4 +320,163 @@ export const certifications = [
 
 export const contact = {
   headline: "Have a problem AI could help with, or a role to fill? I'd like to hear about it.",
+};
+
+// ---------------------------------------------------------------------------
+// Case studies: the longer write-ups behind some projects, one page each at
+// /projects/<slug>. The page component only lays this out.
+
+type Transcript = {
+  title: string;
+  /** a reply can carry rows, shown as a small table under its text */
+  turns: { from: "you" | "bot"; text: string; rows?: string[][] }[];
+};
+
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  subtitle: string;
+  facts: { label: string; value: string }[];
+  /** shown in a box under the header, e.g. why there's no code */
+  note: string;
+  problem: string[];
+  steps: { text: string; parts: string }[];
+  example: { question: string; sql: string; answer: string; rows: string[][] };
+  decisions: { title: string; text: string }[];
+  transcripts: Transcript[];
+  result: { value: string; label: string; text: string[] };
+  improvements: { group: string; items: { title: string; text: string }[] }[];
+  stack: string[];
+};
+
+export const consoleCompanion: CaseStudy = {
+  slug: "console-companion",
+  title: "Console Companion",
+  subtitle: "Plain-English questions about your AWS resources, answered from AWS Config",
+  facts: [
+    { label: "Year", value: "2024" },
+    { label: "Where", value: "AWS Professional Services" },
+    { label: "Role", value: "Designed and built end to end" },
+    { label: "Result", value: "~90% accuracy" },
+  ],
+  note: "This was an internal prototype at AWS Professional Services, built to become a customer offering. The code belongs to AWS, so this page describes the design rather than showing it.",
+  problem: [
+    "AWS Config records the configuration of every resource in an account. It can answer questions like “which EC2 instances are stopped?” or “which Lambda functions still run Node.js 16?” To ask, though, you have to write its own SQL dialect. It supports only part of standard SQL and expects exact property paths like configuration.state.name.",
+    "Most people who need these answers don't know either one. Console Companion lets them ask in plain English instead.",
+  ],
+  steps: [
+    { text: "A question comes in through the chat interface.", parts: "Streamlit" },
+    {
+      text: "A Bedrock Agent works out which resource type the question is about, and retrieves examples from that resource type's knowledge base only.",
+      parts: "Bedrock Agent · Knowledge Bases",
+    },
+    { text: "Using those examples, it writes an AWS Config query.", parts: "Bedrock Agent" },
+    {
+      text: "A validator checks the query against AWS Config's real limits. If something isn't supported, it sends back a correction and the agent tries again.",
+      parts: "Lambda · LangChain",
+    },
+    { text: "A second function runs the valid query through the AWS Config API.", parts: "Lambda · AWS Config" },
+    { text: "The agent turns the result into a short answer or a table.", parts: "Bedrock Agent" },
+  ],
+  example: {
+    question: "Which EC2 instances are stopped?",
+    sql: "SELECT resourceId,\n       configuration.instanceType,\n       availabilityZone\nWHERE resourceType = 'AWS::EC2::Instance'\n  AND configuration.state.name = 'stopped'",
+    answer: "You have 2 stopped EC2 instances:",
+    rows: [
+      ["i-0a1b2c3d4e5f60718", "t3.small", "us-east-1a"],
+      ["i-09f8e7d6c5b4a3921", "t3.medium", "us-east-1b"],
+    ],
+  },
+  decisions: [
+    {
+      title: "Knowledge bases split by resource type",
+      text: "I wrote the datasets myself: the AWS Config properties for each resource type, and example pairs of questions and SQL. Because they're split by resource type, an EC2 question only retrieves EC2 material. That keeps the prompt small and the examples relevant.",
+    },
+    {
+      title: "A separate validator",
+      text: "Most failed queries weren't wrong in logic. They used things Config doesn't support, like joins or properties that don't exist. Rather than asking the model to review its own output, I gave validation to a separate Lambda function with its own prompt, focused only on Config's limits, and fed its corrections back to the agent.",
+    },
+    {
+      title: "Rewritten agent prompts",
+      text: "I replaced Bedrock Agents' default prompts for each stage: pre-processing, orchestration, knowledge-base answers and post-processing. The query-writing step got few-shot examples and step-by-step reasoning.",
+    },
+  ],
+  transcripts: [
+    {
+      title: "Follow-up questions",
+      turns: [
+        { from: "you", text: "How many S3 buckets do I have?" },
+        { from: "bot", text: "You have 10 S3 buckets in this account and region." },
+        { from: "you", text: "List all of them." },
+        {
+          from: "bot",
+          text: "Here are your 10 S3 buckets:",
+          rows: [
+            ["app-assets", "app-assets-dev"],
+            ["athena-results", "backups"],
+            ["cloudtrail-logs", "config-history"],
+            ["lake-curated", "lake-raw"],
+            ["lambda-artifacts", "www-static"],
+          ],
+        },
+      ],
+    },
+    {
+      title: "Staying in scope",
+      turns: [
+        { from: "you", text: "What's the capital of India?" },
+        {
+          from: "bot",
+          text: "I can only help with questions about your AWS resources and their configuration.",
+        },
+      ],
+    },
+    {
+      title: "Failing clearly",
+      turns: [
+        { from: "you", text: "List all running EC2 instances." },
+        {
+          from: "bot",
+          text: "The query returned no results. Either there are no running instances in this region, or AWS Config isn't recording EC2 instances here. Can you confirm the account and region?",
+        },
+      ],
+    },
+  ],
+  result: {
+    value: "~90%",
+    label: "of test questions answered correctly",
+    text: [
+      "About 90% of test questions, including reworded versions of the knowledge-base examples, produced the correct query and answer. I ran each one through the chat interface and checked three things: that the agent retrieved the right examples, wrote the right query, and returned the right data.",
+      "Every test question was close to an example the agent had already seen. So this shows the workflow works, but not how it handles questions it hasn't seen. That's the first thing I'd change.",
+    ],
+  },
+  improvements: [
+    {
+      group: "Build it better",
+      items: [
+        {
+          title: "Check queries in code first",
+          text: "My validator was one model checking another model's output. Now I'd parse the query and check it in code against Config's supported SQL and the real property names. The model would only fix what fails, with a limit on retries.",
+        },
+        {
+          title: "Own the workflow",
+          text: "Bedrock Agents decided the order of steps itself, which made failures hard to trace. I'd make each step explicit (find the resource type, retrieve, write the query, validate, run, summarize), so each one can be logged and tested on its own.",
+        },
+        {
+          title: "Handle large accounts in code",
+          text: "Big accounts return thousands of records. I'd page through the results and do the counting and grouping in code, so the model only sees a summary.",
+        },
+      ],
+    },
+    {
+      group: "Test it better",
+      items: [
+        {
+          title: "A real evaluation set",
+          text: "I'd build a set of questions the agent has never seen, and score each one on whether its results match the expected data, not whether the SQL text matches. Running that set after every prompt or dataset change would catch problems before users do. I've since done this on my LangChain documentation assistant with RAGAS and LangSmith.",
+        },
+      ],
+    },
+  ],
+  stack: ["Bedrock Agents", "Knowledge Bases", "Lambda", "AWS Config", "LangChain", "OpenAPI", "Python", "Streamlit", "S3"],
 };
