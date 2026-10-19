@@ -17,6 +17,15 @@ export const metadata: Metadata = {
     template: `%s · ${site.fullName}`,
   },
   description: site.description,
+  // Link previews. The image itself comes from app/opengraph-image.tsx.
+  openGraph: {
+    type: "website",
+    siteName: site.fullName,
+    title: site.fullName,
+    description: site.description,
+    url: "/",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { consoleCompanion as study } from "@/content";
+import { consoleCompanion as study, site } from "@/content";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
   title: study.title,
   description: study.subtitle,
+  // without this the page would inherit the home page's preview title
+  openGraph: {
+    type: "article",
+    title: `${study.title} · ${site.fullName}`,
+    description: study.subtitle,
+    url: `/projects/${study.slug}`,
+  },
 };
 
 // The Console Companion case study. All copy comes from content.ts; this file only

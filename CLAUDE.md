@@ -1,7 +1,7 @@
 # Portfolio site: context for Claude Code
 
-Rithwik's personal portfolio (github.com/rithrandome/portfolio, deploying to Vercel as
-rithwik.vercel.app). It's linked from job applications (Applied AI / Software Engineer
+Rithwik's personal portfolio (github.com/rithrandome/portfolio), live on Vercel at
+https://rithwik-mu.vercel.app (every push to `main` redeploys it). It's linked from job applications (Applied AI / Software Engineer
 roles in Canada) and also reads as a freelance page. The code is part of the portfolio,
 so keep it clean, commented where the "why" isn't obvious, and explainable in an interview.
 
@@ -34,7 +34,9 @@ check `node_modules/next/dist/docs/` before using an API you're unsure of.
 
 - **All copy lives in `src/content.ts`.** Components only render it.
 - **Colours are tokens** in `src/app/globals.css` (`bg-surface`, `text-muted`,
-  `border-line`, `text-accent`, …), defined for both themes. No raw colours in components.
+  `border-line`, `text-accent`, …), defined for both themes: beige base, tobacco accent.
+  No raw colours in components. Hex copies for the generated images and icons live in
+  `src/lib/brand.ts`; keep them in sync.
 - Theme = `data-theme` on `<html>`, set before paint by `src/lib/theme.ts`; the toggle
   uses View Transitions. Don't add next-themes.
 - Animations go through `src/components/reveal.tsx` (`trigger="load"` or scroll).
@@ -75,12 +77,15 @@ Case studies live at `/projects/<slug>` (`src/app/projects/`).
 - **Contact form works locally.** Keys live in `.env.local` (ignored by Git; never
   print their values). `CONTACT_TO_EMAIL` must be the address the Resend account was
   created with, because the default sender `onboarding@resend.dev` can only deliver there.
-  The same variables still need adding in Vercel before deploying.
+  The same variables are set in Vercel (marked sensitive); after changing one, redeploy.
 - `public/resume.pdf` is missing; the Resume buttons and the Experience link point to it.
 - Console Companion case study is live at `/projects/console-companion` (copy in
   `consoleCompanion` in content.ts, approved). Its screenshots are deliberately
   recreated with made-up resource names; never publish the originals (real account IDs).
 - Planned "Why I build with AI" philosophy section after the hero. Draft text was agreed
   in principle but not approved; the personal last line is still to come from Rithwik.
+- Link previews: `src/lib/og-card.tsx` (shared layout) + `opengraph-image.tsx` per page;
+  icons from `src/lib/brand-mark.tsx`. A new case study should get its own
+  opengraph-image.tsx and an `openGraph` block in its metadata.
 - network-ai and anyRAG rows have no links until their repos are public.
 - v2 idea: an "ask about my experience" RAG chatbot.

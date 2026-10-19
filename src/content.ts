@@ -6,7 +6,7 @@ export const site = {
   name: "Rithwik",
   fullName: "Rithwik Veera Balaji Kumar",
   location: "Saskatoon, Canada",
-  url: "https://rithwik.vercel.app",
+  url: "https://rithwik-mu.vercel.app",
   description:
     "Rithwik Veera Balaji Kumar builds dependable AI applications and software in Saskatoon, focusing on practical workflows, evaluation, and cloud engineering.",
   links: {

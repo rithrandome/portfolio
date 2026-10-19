@@ -1,4 +1,4 @@
-# rithwik.vercel.app
+# rithwik-mu.vercel.app
 
 My personal portfolio: projects, experience and how to reach me. It's a small site, but I'm treating it as a project of its own, so the code is meant to be read.
 
