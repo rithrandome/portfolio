@@ -8,28 +8,28 @@
    so changing the accent (or adding a theme) happens in one place. */
 :root,
 [data-theme="light"] {
-  --background: #fafaf7;
-  --surface: #ffffff;
-  --surface-2: #f3f3ee;
-  --line: #e3e3dc;
-  --foreground: #111418;
-  --muted: #565d69;
-  --accent: #0f766e;
-  --accent-ink: #ffffff;
-  --dot: rgb(17 20 24 / 0.1);
+  --background: #f3ede2; /* warm beige */
+  --surface: #faf6ef; /* cream cards */
+  --surface-2: #ebe3d5;
+  --line: #ddd2c0; /* sand */
+  --foreground: #2a241d; /* dark brown */
+  --muted: #6f6455; /* taupe */
+  --accent: #7a5230; /* tobacco */
+  --accent-ink: #faf6ef;
+  --dot: rgb(42 36 29 / 0.1);
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --background: #0b0d10;
-  --surface: #14171c;
-  --surface-2: #1a1e24;
-  --line: #252a32;
-  --foreground: #e6e8eb;
-  --muted: #8a9099;
-  --accent: #2dd4bf;
-  --accent-ink: #062a26;
-  --dot: rgb(255 255 255 / 0.1);
+  --background: #171411; /* espresso */
+  --surface: #1f1b17;
+  --surface-2: #26211c;
+  --line: #352e27;
+  --foreground: #ece4d6; /* beige text */
+  --muted: #a39886;
+  --accent: #c9a27a; /* camel */
+  --accent-ink: #1f1610;
+  --dot: rgb(236 228 214 / 0.08);
   color-scheme: dark;
 }
 
