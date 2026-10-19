@@ -1,7 +1,16 @@
 import { hero, site } from "@/content";
 import { ButtonLink } from "@/components/button-link";
-import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "@/components/icons";
+import {
+  BookIcon,
+  DownloadIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  MailIcon,
+  ToolIcon,
+} from "@/components/icons";
 import { Reveal } from "@/components/reveal";
+
+const nowIcons = { tool: ToolIcon, book: BookIcon };
 
 export function Hero() {
   return (
@@ -62,12 +71,30 @@ export function Hero() {
                 Now
               </h2>
               <dl>
-                {hero.now.map((item) => (
-                  <div key={item.label} className="flex flex-col gap-1 border-b border-line py-4">
-                    <dt className="font-mono text-xs text-muted">{item.label}</dt>
-                    <dd className="text-[15px] leading-snug">{item.value}</dd>
-                  </div>
-                ))}
+                {hero.now.map((item) => {
+                  const Icon = nowIcons[item.icon];
+                  return (
+                    <div key={item.label} className="flex flex-col gap-2 border-b border-line py-4">
+                      <dt className="flex items-center gap-2 font-mono text-xs text-muted">
+                        {item.label}
+                        {/* slow pulse on the icon: this is happening right now */}
+                        <Icon className="size-3.5 animate-pulse text-accent motion-reduce:animate-none" />
+                      </dt>
+                      <dd>
+                        <ul className="flex flex-col gap-3">
+                          {item.entries.map((entry) => (
+                            <li key={entry.title} className="flex flex-col gap-0.5">
+                              <span className="text-[15px] leading-snug">{entry.title}</span>
+                              {entry.detail && (
+                                <span className="font-mono text-[13px] text-muted">{entry.detail}</span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </dd>
+                    </div>
+                  );
+                })}
               </dl>
             </aside>
           </Reveal>
@@ -77,7 +104,7 @@ export function Hero() {
       {/* With the next section hidden, a quiet cue shows there's more below. */}
       <Reveal trigger="load" delay={0.9} className="relative flex justify-center pb-8">
         <a
-          href="#work"
+          href="#experience"
           className="flex flex-col items-center gap-1 font-mono text-xs text-muted transition-colors hover:text-foreground"
         >
           scroll

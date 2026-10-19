@@ -1,5 +1,5 @@
 import { Contact } from "@/components/contact";
-import { Education } from "@/components/education";
+import { Certifications, Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { Projects } from "@/components/projects";
@@ -10,10 +10,11 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Projects />
       <Experience />
+      <Projects />
       <Skills />
       <Education />
+      <Certifications />
       <Contact />
     </>
   );
