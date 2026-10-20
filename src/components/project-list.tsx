@@ -49,9 +49,10 @@ function ProjectRow({ project, index, isOpen, onToggle }: ProjectRowProps) {
   const panelId = `project-${project.slug}`;
   const inProgress = project.status === "in-progress";
 
-  // The whole row, and its open panel, takes a light tint on hover.
+  // The whole row, and its open panel, takes a light accent tint on hover. A tint of the
+  // accent (rather than a surface colour) stays visible on both the page and the cream bands.
   return (
-    <li className="border-b border-line px-4 transition-colors duration-300 hover:bg-surface sm:px-5">
+    <li className="border-b border-line px-4 transition-colors duration-300 hover:bg-accent/7 sm:px-5">
       {/* The whole row is one real <button>, so it works with the keyboard and screen
           readers announce whether it's expanded. */}
       <button

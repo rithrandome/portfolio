@@ -17,6 +17,8 @@
   --accent: #7a5230; /* tobacco */
   --accent-ink: #faf6ef;
   --dot: rgb(42 36 29 / 0.1);
+  --dot-faint: rgb(42 36 29 / 0.045);
+  --band: rgb(250 246 239 / 0.72); /* translucent cream, so the page dots show through */
   color-scheme: light;
 }
 
@@ -30,6 +32,8 @@
   --accent: #c9a27a; /* camel */
   --accent-ink: #1f1610;
   --dot: rgb(236 228 214 / 0.08);
+  --dot-faint: rgb(236 228 214 / 0.035);
+  --band: rgb(31 27 23 / 0.78);
   color-scheme: dark;
 }
 
@@ -43,6 +47,7 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-band: var(--band);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -64,6 +69,13 @@ html {
   background-image: radial-gradient(var(--dot) 1px, transparent 1px);
   background-size: 22px 22px;
   mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+
+/* The same grid, much fainter, behind the whole page (set on <main>). The hero sits
+   at the top of <main>, so both grids share an origin and the dots line up. */
+@utility bg-dots-faint {
+  background-image: radial-gradient(var(--dot-faint) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
 /* The theme switch cross-fades the whole page (see theme-toggle.tsx). */

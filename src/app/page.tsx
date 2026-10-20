@@ -1,4 +1,5 @@
 import { Contact } from "@/components/contact";
+import { Band } from "@/components/band";
 import { Certifications, Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
@@ -11,13 +12,22 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Philosophy />
+      {/* sections alternate between the plain page and a cream band */}
+      <Band>
+        <Philosophy />
+      </Band>
       <Experience />
-      <Projects />
+      <Band>
+        <Projects />
+      </Band>
       <Skills />
-      <Education />
+      <Band>
+        <Education />
+      </Band>
       <Certifications />
-      <Contact />
+      <Band last>
+        <Contact />
+      </Band>
     </>
   );
 }

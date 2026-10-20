@@ -6,7 +6,7 @@ import { Reveal } from "@/components/reveal";
 // column on the right; on phones they stack.
 export function Philosophy() {
   return (
-    <section id="why" className="border-t border-line">
+    <section id="why">
       <div className="mx-auto grid max-w-[1120px] grid-cols-1 gap-10 px-6 py-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <Reveal>
           <h2 className="font-mono text-xs tracking-[0.3em] text-accent uppercase">

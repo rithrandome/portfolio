@@ -6,7 +6,7 @@ import { Reveal } from "@/components/reveal";
 
 export function Contact() {
   return (
-    <section id="contact" className="mt-10 border-t border-line">
+    <section id="contact">
       {/* text and links on the left, the form on the right; stacked on phones */}
       <div className="mx-auto grid max-w-[1120px] grid-cols-1 gap-14 px-6 pt-28 pb-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
         <Reveal className="flex flex-col items-start gap-6">
