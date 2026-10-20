@@ -190,7 +190,7 @@ export const projects: Project[] = [
   {
     slug: "console-companion",
     title: "Console Companion",
-    oneLiner: "Plain-English questions to AWS Config SQL",
+    oneLiner: "An AI companion for your AWS console",
     year: "2024",
     tag: "Built at AWS ProServe",
     summary:
