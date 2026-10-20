@@ -21,8 +21,10 @@ export function ProjectList({ projects }: { projects: Project[] }) {
     });
   }
 
+  // The list is pulled out to the sides so each row can carry its own padding and
+  // hover tint while the text stays aligned with the section heading.
   return (
-    <ul className="border-t border-line">
+    <ul className="-mx-4 border-t border-line sm:-mx-5">
       {projects.map((project, i) => (
         <ProjectRow
           key={project.slug}
@@ -47,8 +49,9 @@ function ProjectRow({ project, index, isOpen, onToggle }: ProjectRowProps) {
   const panelId = `project-${project.slug}`;
   const inProgress = project.status === "in-progress";
 
+  // The whole row, and its open panel, takes a light tint on hover.
   return (
-    <li className="border-b border-line">
+    <li className="border-b border-line px-4 transition-colors duration-300 hover:bg-surface sm:px-5">
       {/* The whole row is one real <button>, so it works with the keyboard and screen
           readers announce whether it's expanded. */}
       <button

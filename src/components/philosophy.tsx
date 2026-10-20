@@ -31,11 +31,25 @@ export function Philosophy() {
         <Reveal className="flex max-w-[640px] flex-col gap-5 lg:pt-12">
           {philosophy.paragraphs.map((p) => (
             <p key={p} className="text-[17px] leading-relaxed">
-              {p}
+              <Highlighted text={p} />
             </p>
           ))}
         </Reveal>
       </div>
     </section>
+  );
+}
+
+// Turns *marked* phrases into a light highlight: italic, slightly heavier, in the
+// accent colour. Everything else renders as plain text.
+function Highlighted({ text }: { text: string }) {
+  return text.split(/\*(.+?)\*/g).map((part, i) =>
+    i % 2 === 1 ? (
+      <em key={i} className="font-medium text-accent">
+        {part}
+      </em>
+    ) : (
+      part
+    ),
   );
 }
