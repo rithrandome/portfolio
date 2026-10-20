@@ -56,6 +56,21 @@ export const hero = {
   ],
 };
 
+// The "Why I build with AI" section between the hero and Experience: one quote,
+// then a few paragraphs of philosophy. No projects or employers named here on purpose.
+export const philosophy = {
+  title: "Why I build with AI",
+  quote: {
+    text: "Civilization advances by extending the number of important operations which we can perform without thinking about them.",
+    author: "Alfred North Whitehead",
+  },
+  paragraphs: [
+    "I believe people are at their best when they have room to create. Too much of our time goes into the repeated work required to bring an idea to life, leaving less time to explore, invent, and make decisions. I want AI to take on some of that execution so people can give more attention to the ideas themselves. That belief drew me to applied AI and still guides what I work on.",
+    "Many everyday tasks need context and judgment, so fixed-step automation can only go so far. Large language models have made it possible to interact with AI in everyday language, even for people who don't work in technology. To me, that is one of the most meaningful changes. People can ask for help in their own words and use AI for everyday tasks without needing to know how the technology works. I want to make this kind of help intuitive and dependable for everyday use.",
+    "I build conversational AI and agents across the full stack, from the AI layer to the interface and cloud services. I build in safeguards for reliability and data safety, then test systems, evaluate their outputs, and use failures as feedback to improve them before release. I bring the same approach to my own development. I use AI to speed up coding, debugging, and testing while staying hands-on with the code and keeping architectural decisions my responsibility. I want to make intelligent help part of everyday life, and I work toward that with each system I build.",
+  ],
+};
+
 export type FlowStep = {
   label: string;
   /** highlighted in the accent colour: the parts doing the interesting work */

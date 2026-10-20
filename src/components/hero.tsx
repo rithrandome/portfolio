@@ -104,7 +104,7 @@ export function Hero() {
       {/* With the next section hidden, a quiet cue shows there's more below. */}
       <Reveal trigger="load" delay={0.9} className="relative flex justify-center pb-8">
         <a
-          href="#experience"
+          href="#why"
           className="flex flex-col items-center gap-1 font-mono text-xs text-muted transition-colors hover:text-foreground"
         >
           scroll

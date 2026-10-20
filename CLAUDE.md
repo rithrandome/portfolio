@@ -60,7 +60,8 @@ check `node_modules/next/dist/docs/` before using an API you're unsure of.
 ## Page structure (src/app/page.tsx)
 
 Hero (name, location, headline, supporting line, buttons, "Now" list with pulsing
-tool/book icons) → 01 Experience (staggered centre timeline) → 02 Selected work
+tool/book icons) → "Why I build with AI" (unnumbered; Whitehead quote + 3 paragraphs,
+copy in `philosophy` in content.ts, approved Oct 2026) → 01 Experience (staggered centre timeline) → 02 Selected work
 (expandable rows, all collapsed on load) → 03 Skills → 04 Education → 05 Certifications
 (Credly badges in `public/badges/`) → 06 Contact (text left, form right) → footer.
 Case studies live at `/projects/<slug>` (`src/app/projects/`).
@@ -82,8 +83,6 @@ Case studies live at `/projects/<slug>` (`src/app/projects/`).
 - Console Companion case study is live at `/projects/console-companion` (copy in
   `consoleCompanion` in content.ts, approved). Its screenshots are deliberately
   recreated with made-up resource names; never publish the originals (real account IDs).
-- Planned "Why I build with AI" philosophy section after the hero. Draft text was agreed
-  in principle but not approved; the personal last line is still to come from Rithwik.
 - Link previews: `src/lib/og-card.tsx` (shared layout) + `opengraph-image.tsx` per page;
   icons from `src/lib/brand-mark.tsx`. A new case study should get its own
   opengraph-image.tsx and an `openGraph` block in its metadata.
